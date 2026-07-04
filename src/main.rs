@@ -9,9 +9,9 @@ pub struct Args {
     #[arg(value_name = "TEXT", default_value = "-")]
     pub text: String,
 
-    /// 目标语言，默认英文（en）或中文（zh-CN）
-    #[arg(short = 't', long, default_value = "en")]
-    pub target: String,
+    /// 目标语言，默认自动检测（英文→中文，其他→英文）
+    #[arg(short = 't', long)]
+    pub target: Option<String>,
 
     /// 源语言，默认自动检测
     #[arg(short = 's', long, default_value = "auto")]
@@ -35,8 +35,17 @@ async fn main() -> anyhow::Result<()> {
         std::process::exit(1);
     }
 
+    // 自动检测目标语言：首字符为英文字母则英译中，否则中译英
+    let target = args.target.unwrap_or_else(|| {
+        if text.chars().next().is_some_and(|c| c.is_ascii_alphabetic()) {
+            "zh-CN".to_string()
+        } else {
+            "en".to_string()
+        }
+    });
+
     let client = Client::new();
-    let result = translate(&client, &text, &args.target, &args.source).await?;
+    let result = translate(&client, &text, &target, &args.source).await?;
     println!("{}", result);
     Ok(())
 }
