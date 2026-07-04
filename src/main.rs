@@ -3,7 +3,7 @@ use reqwest::Client;
 use std::io::{self, Read};
 
 #[derive(Parser, Debug)]
-#[command(name = "tr", about = "命令行单词翻译工具")]
+#[command(name = "t", about = "命令行单词翻译工具")]
 pub struct Args {
     /// 待翻译的文本，不填则从标准输入读取
     #[arg(value_name = "TEXT", default_value = "-")]

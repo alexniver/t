@@ -1,4 +1,4 @@
-# tr — 命令行单词翻译工具
+# t — 命令行单词翻译工具
 
 基于 Google 翻译接口的命令行翻译工具，支持中英互译和管道输入。
 
@@ -7,7 +7,7 @@
 ```bash
 # 从源码编译安装
 git clone git@github.com:alexniver/tr.git
-cd tr
+cd t
 cargo install --path .
 ```
 
@@ -15,23 +15,23 @@ cargo install --path .
 
 ```bash
 # 中译英
-tr 你好
+t 你好
 # → Hello
 
 # 英译中
-tr Hello
+t Hello
 # → 你好
 
 # 管道输入
-echo "世界" | tr
+echo "世界" | t
 # → world
 
 # 指定目标语言（法语）
-tr Hello -t fr
+t Hello -t fr
 # → Bonjour
 
 # 指定源语言
-tr Hello -s en -t zh-CN
+t Hello -s en -t zh-CN
 ```
 
 ## 选项
